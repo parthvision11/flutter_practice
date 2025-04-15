@@ -2,28 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_practice/create_player.dart';
 import 'package:flutter_practice/home/my_home_page.dart';
 
-import 'countDownTimer/count_down_screen.dart';
-import 'ipAddress/device_ip_address.dart';
+import 'main_page.dart';
 
-void main() async {
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   runApp(const MyApp(env: 'Main'));
+// }
+
+Future<void> mainCommon({required String env}) async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+
+  // You can load different config files or URLs based on `env` here
+  runApp(MyApp(env: env));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String env;
+
+  const MyApp({super.key, required this.env});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'MyApp $env',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const DeviceIpAddress(),
+      home: MainPage(environment: env),
       routes: {
-        // '/': (context) => const MainPage(),
         '/MyHome': (context) => const MyHomePage(title: 'Button Tap Counter'),
         '/CreatePlayer': (context) => const CreatePlayer(),
       },

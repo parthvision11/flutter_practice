@@ -37,8 +37,30 @@ android {
             signingConfig = signingConfigs.debug
         }
     }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        dev {
+            dimension "default"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+        }
+        staging {
+            dimension "default"
+            applicationIdSuffix ".staging"
+            versionNameSuffix "-staging"
+        }
+        prod {
+            dimension "default"
+        }
+    }
 }
 
 flutter {
     source = "../.."
+}
+
+android.applicationVariants.all { variant ->
+    println("Variant: ${variant.name}")
 }
