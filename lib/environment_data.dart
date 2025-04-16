@@ -1,17 +1,32 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import 'app_config.dart';
 
-class MainPage extends StatelessWidget {
-  final String environment;
+class EnvironmentData extends StatefulWidget {
+  const EnvironmentData({super.key});
+
+  @override
+  State<EnvironmentData> createState() => _EnvironmentDataState();
+}
+
+class _EnvironmentDataState extends State<EnvironmentData> {
   final config = AppConfig.instance;
 
-  MainPage({super.key, required this.environment});
+  @override
+  void initState() {
+    super.initState();
+    log("Environment: ${config.flavor}");
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Environment Data"),
+        ),
         body: Container(
           padding: const EdgeInsets.all(20),
           width: MediaQuery.of(context).size.width,
@@ -20,18 +35,7 @@ class MainPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Text(
-                "Current Environment: $environment",
-                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-              ),
-              MaterialButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/QRScanner');
-                },
-                color: Colors.blueAccent,
-                child: const Text('Environment'),
-              ),
-              Text("Running in ${config.flavor} mode,\nhitting ${config.baseUrl}"),
+              Text("Running in ${config.flavor} mode,\nAPI: ${config.baseUrl}"),
               const SizedBox(
                 height: 20,
               ),

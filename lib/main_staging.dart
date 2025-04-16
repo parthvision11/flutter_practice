@@ -1,5 +1,9 @@
 import 'main.dart';
 
 void main() async {
-  mainCommon(env: 'staging');
+  mainCommon(
+    appName: "Practice Staging",
+    baseUrl: "https://staging.api.example.com",
+    flavor: "staging",
+  );
 }

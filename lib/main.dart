@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_practice/create_player.dart';
+import 'package:flutter_practice/environment_data.dart';
 import 'package:flutter_practice/home/my_home_page.dart';
+import 'package:flutter_practice/scanner/qr_scanner_screen.dart';
 
+import 'app_config.dart';
 import 'main_page.dart';
 
 // void main() async {
@@ -9,11 +12,18 @@ import 'main_page.dart';
 //   runApp(const MyApp(env: 'Main'));
 // }
 
-Future<void> mainCommon({required String env}) async {
+Future<void> mainCommon({
+  required String appName,
+  required String baseUrl,
+  required String flavor,
+}) async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // You can load different config files or URLs based on `env` here
-  runApp(MyApp(env: env));
+  AppConfig.initialize(
+    appName: appName,
+    baseUrl: baseUrl,
+    flavor: flavor,
+  );
+  runApp(MyApp(env: flavor));
 }
 
 class MyApp extends StatelessWidget {
@@ -33,12 +43,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/MyHome': (context) => const MyHomePage(title: 'Button Tap Counter'),
         '/CreatePlayer': (context) => const CreatePlayer(),
+        '/environment': (context) => const EnvironmentData(),
+        '/QRScanner': (context) => const QrScannerScreen(),
       },
     );
-
-    //   BlocProvider(
-    //           create: (context) => CounterBloc(),
-    //           child: const MyHomePage(title: 'Button Tap Counter'),
-    //         ))
   }
 }
